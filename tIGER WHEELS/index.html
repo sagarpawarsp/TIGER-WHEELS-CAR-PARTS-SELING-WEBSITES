@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIGER WHEEL'S</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem;
+        }
+
+        .navbar-brand img {
+            width: 50px;
+            height: auto;
+        }
+
+        .company-name {
+            font-size: 1.2rem;
+            color: #333;
+            margin-left: 10px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                        url('https://i.ibb.co/jyfbwB4/4-DDE30-A1-A07-E-440-A-BE6-F-0-A19389-DE232.png');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            animation: fadeInUp 1s ease-out 0.2s;
+        }
+
+        /* Service Cards */
+       /* Custom CSS for service cards */
+       #services .service-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        #services .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Image section for the card */
+        #services .service-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        /* Text content styling */
+        #services .service-card .card-body {
+            padding: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        #services h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        #services p {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        #services .btn-outline-primary {
+            margin-top: 15px;
+            color: #333;
+            border-color: #333;
+            font-weight: bold;
+        }
+
+        /* Authentication Forms */
+        .signin-container,
+        .signup-container {
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            padding: 2rem;
+        }
+
+        .signin-card,
+        .signup-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .brand-logo {
+            width: 100px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Contact Section */
+        .contact-info {
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .service-card {
+                margin: 1rem;
+            }
+        }
+
+        /* Form Styles */
+        .form-control {
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .social-signin {
+            margin-top: 1.5rem;
+        }
+
+        .social-signin img {
+            margin-right: 10px;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .contact-form, .contact-info {
+            transition: box-shadow 0.3s ease;
+        }
+        .contact-form:hover, .contact-info:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .contact-info p, .contact-form h3 {
+            font-family: 'Arial', sans-serif; /* Change to a premium font if desired */
+        }
+        .btn-primary {
+            background-color: #007bff; /* Change to your brand color */
+            border-color: #007bff; /* Same as above */
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker shade for hover effect */
+        }
+        .social-links a {
+            color: #007bff; /* Social icon color */
+            font-size: 24px; /* Larger icons for better visibility */
+        }
+        .social-links a:hover {
+            color: #0056b3; /* Darker shade on hover */
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .contact-form, .contact-info {
+                margin-bottom: 20px;
+            }
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .map-container {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="https://i.ibb.co/4138Y33/Screenshot-2024-10-07-144640.png" alt="TIGER WHEEL'S Logo">
+                <span class="company-name">TIGER WHEEL'S</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                       <!-- <a class="nav-link" href="signup.html">Sign In</a>-->
+                        <li class="nav-item" id="userGreeting" style="display: none;">
+                            <a class="nav-link" href="#">Hello, <span id="userName"></span></a>
+                        </li>
+                       <!-- <li class="nav-item" id="signInLink">
+                            <a class="nav-link" href="signin.html">Sign In</a>
+                        </li>
+                        -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1 class="hero-title">Make Your Car Last Longer</h1>
+            <p class="hero-subtitle">Quality Auto Services That You Can Rely On</p>
+            <button ></button>
+            <a href="#services" class="btn btn-primary btn-lg">Explore Our Services</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Our Services</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="service-card card">
+                        <!-- Car image -->
+                        <img src="https://static.vecteezy.com/system/resources/previews/000/623/239/non_2x/auto-car-logo-template-vector-icon.jpg" alt="Car Service">
+                        <div class="card-body">
+                            <h3>Cars</h3>
+                            <p>Explore our range of high-quality cars.</p>
+                            <a href="car_buy.html" class="btn btn-outline-primary">View Cars</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="service-card card">
+                        <!-- Spare Parts image -->
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ6huKb6Z12nTSKhOWMzelb60UkUORSF2DlA&s" alt="Spare Parts Service">
+                        <div class="card-body">
+                            <h3>Spare Parts</h3>
+                            <p>We provide quality spare parts for all types of vehicles.</p>
+                            <a href="spare_part.html" class="btn btn-outline-primary">View Spare Parts</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="vehicle-services py-5 bg-light">
+        <div class="container text-center">
+            <h2>Vehicles We Service</h2>
+            <p class="lead">We offer professional services for a variety of Indian and international vehicles.</p>
+            
+            <!-- Carousel/Slider for Car Images -->
+            <div id="vehicleCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://i.pinimg.com/564x/1c/79/00/1c79001cce2d83254761b1d6523f1358.jpg" class="d-block w-100" alt="Maruti Suzuki">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_-DWiqT1mAwPMvdqEqwN39R6tW94MGwBjRQ&s" class="d-block w-100" alt="Tata Motors">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4AE4v81AtzQ4f25KGJA4gWT-YFpuUe5aVAw&s" class="d-block w-100" alt="Mahindra">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdhLmdOrerhIByifpFFC0nNeeQIoP2Bpq-Ww&s" class="d-block w-100" alt="Hyundai">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://i.pinimg.com/originals/10/62/e6/1062e6ed768e0bfff7d35e1b39717693.pnghttps://i.pinimg.com/originals/10/62/e6/1062e6ed768e0bfff7d35e1b39717693.png" class="d-block w-100" alt="Volkswagen">
+                    </div>
+                   
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#vehicleCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#vehicleCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+    
+            <!-- Indian and International Car Brands as Buttons -->
+            <div class="row mt-4">
+                <div class="col-md-2">
+                    <a href="maruti.html" class="btn btn-outline-primary w-100">Maruti Suzuki</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="tata.html" class="btn btn-outline-primary w-100">Tata Motors</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="mahindra.html" class="btn btn-outline-primary w-100">Mahindra</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="hyndayi.html." class="btn btn-outline-primary w-100">Hyundai</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="vw.html" class="btn btn-outline-primary w-100">Volkswagen</a>
+                </div>
+               
+            </div>
+    
+            <a href="#" class="btn btn-primary mt-4">View All Services</a>
+        </div>
+    </section>
+    
+
+
+
+
+    <!-- Why Choose Us Section -->
+<section class="py-5 position-relative overflow-hidden">
+    <div class="video-background">
+        <iframe src="https://www.youtube.com/embed/GlEZuvdfkzU?autoplay=1&mute=1&loop=1&playlist=GlEZuvdfkzU" 
+                frameborder="0" 
+                allow="autoplay; encrypted-media" 
+                allowfullscreen 
+                class="w-100 h-100 position-absolute" 
+                style="top: 0; left: 0; z-index: -1;"></iframe>
+    </div>
+    <div class="container">
+        <h2 class="text-center mb-5 text-white">Why Choose Us?</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="service-card text-center bg-white p-4 rounded shadow">
+                    <i class="fas fa-tools fa-3x mb-3"></i>
+                    <h4>Expert Technicians</h4>
+                    <p>Highly trained and certified technicians for the best service.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card text-center bg-white p-4 rounded shadow">
+                    <i class="fas fa-cogs fa-3x mb-3"></i>
+                    <h4>Advanced Tools</h4>
+                    <p>Cutting-edge tools and technology for top condition maintenance.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-card text-center bg-white p-4 rounded shadow">
+                    <i class="fas fa-dollar-sign fa-3x mb-3"></i>
+                    <h4>Affordable Prices</h4>
+                    <p>Competitive pricing for high-quality services.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .video-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1; /* Ensure video is behind content */
+    }
+    iframe {
+        pointer-events: none; /* Prevent interaction with the iframe */
+    }
+    .service-card {
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+        border-radius: 10px; /* Rounded corners for the cards */
+    }
+</style>
+
+    <!-- Company Overview Section -->
+    <section class="company-overview py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center">Company Overview</h2>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h4>Our Mission</h4>
+                    <p>At TIGER WHEELS, our mission is to provide top-quality automotive services that ensure the safety and reliability of your vehicle. With expert technicians and modern tools, we go above and beyond for customer satisfaction.</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Popular Questions</h4>
+                    <p><strong>How often should I service my car?</strong><br> It's best to service your car every 6 months or 10,000 km, whichever comes first.</p>
+                    <p><strong>What services do you offer?</strong><br> We offer a range of services including engine diagnostics, brake repairs, oil changes, and more.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Contact Us</h2>
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <form class="contact-form bg-white p-4 shadow rounded">
+                        <h3 class="mb-4">Get in Touch</h3>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="contact-info bg-white p-4 shadow rounded">
+                        <h3 class="mb-4">Contact Information</h3>
+                        <p><i class="fas fa-map-marker-alt me-2"></i>123 Wheel St, City Name, Country</p>
+                        <p><i class="fas fa-phone me-2"></i>+91 91128 95342</p>
+                        <p><i class="fas fa-envelope me-2"></i>info@tigerwheels.com</p>
+                        <div class="social-links mt-4">
+                            <a href="#" class="me-3"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-4 video-container">
+                    <h3 class="text-center mb-4">Watch Our Introduction</h3>
+                    <iframe src="https://www.youtube.com/embed/yh0ZGHiizSA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="row map-container">
+                <div class="col-12">
+                    <h3 class="text-center mb-4">Find Us Here</h3>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1302791228914!2d-122.4206796850256!3d37.7749292797593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c6d5de0d1%3A0x4c8c4c1be9e9ab24!2s123%20Wheel%20St%2C%20City%20Name%2C%20Country!5e0!3m2!1sen!2sus!4v1697622959038!5m2!1sen!2sus" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p>© 2024 TIGER WHEEL'S. All Rights Reserved.</p>
+            <a href="https://www.tigerwheels.com" class="text-white text-decoration-none">www.tigerwheels.com</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const userGreeting = document.getElementById('userGreeting');
+    const signInLink = document.getElementById('signInLink');
+
+    if (isLoggedIn === 'true') {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+
+        if (userData && userData.fullName) {
+            document.getElementById('userName').textContent = userData.fullName;
+            userGreeting.style.display = 'block';
+            signInLink.style.display = 'none';
+        }
+    }
+});
+
+    </script>
+    
+</body>
+</html>

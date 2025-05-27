@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .card-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffce00;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #002f34;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 18px;
+            color: #002f34;
+            margin-bottom: 10px;
+        }
+
+        .details {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .location {
+            color: #666;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .date {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .favorite-btn.active {
+            color: red;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .show-more-btn, .chat-btn {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .show-more-btn:hover, .chat-btn:hover {
+            background-color: #005f7a;
+        }
+
+        /* Hidden additional details */
+        .more-info {
+            display: none;
+            color: #444;
+            font-size: 14px;
+            margin-top: 10px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="carListings">
+        <!-- Cards will be inserted here by JavaScript -->
+    </div>
+
+    <script>
+        // Sample Indian car data with updated images
+        const cars = [
+            {
+                id: 1,
+                title: "2021 Tata Nexon",
+                price: "₹8,500,000",
+                image: "https://i.ibb.co/hMf3vjr/R8-F2-TQS-fzcdtxss-1-48022922.jpg",
+                year: 2021,
+                mileage: "20,000 km",
+                location: "Mumbai, Maharashtra",
+                date: "1 week ago",
+                featured: true,
+                description: "The Tata Nexon is a compact SUV that combines style, safety, and performance with a powerful engine and spacious interiors."
+            },
+            {
+                id: 2,
+                title: "2020 Maruti Suzuki Vitara Brezza",
+                price: "₹7,500,000",
+                image: "https://i.ibb.co/9TZLJCn/file.png",
+                year: 2020,
+                mileage: "15,000 km",
+                location: "Bangalore, Karnataka",
+                date: "2 weeks ago",
+                featured: false,
+                description: "Maruti Suzuki Vitara Brezza is known for its reliability and efficient fuel economy, perfect for urban driving."
+            },
+            {
+                id: 3,
+                title: "2022 Hyundai Creta",
+                price: "₹12,500,000",
+                image: "https://i.ibb.co/r2sRdP7/0-J7-MF77-iggktq6p-1-48457103.jpg",
+                year: 2022,
+                mileage: "10,000 km",
+                location: "Delhi",
+                date: "Just now",
+                featured: true,
+                description: "The Hyundai Creta offers advanced technology, a powerful engine, and spacious interiors, making it one of the best in its class."
+            },
+            {
+                id: 4,
+                title: "2023 Kia Seltos",
+                price: "₹11,000,000",
+                image: "https://i.ibb.co/C0RQyN4/3-NQYV7-R-iwzn8duj-1-43117598.jpg",
+                year: 2023,
+                mileage: "5,000 km",
+                location: "Chennai",
+                date: "2 days ago",
+                featured: true,
+                description: "The Kia Seltos combines a stunning design with advanced technology and a powerful engine for a great driving experience."
+            },
+            {
+                id: 5,
+                title: "2021 MG Hector",
+                price: "₹15,000,000",
+                image: "https://i.ibb.co/JpB8dRq/images-q-tbn-ANd9-Gc-Tgjks-Yn-OSo2-QETp-Dy-Xq408-RBr-G9u-Lpq-VSj-AA-s.jpg",
+                year: 2021,
+                mileage: "12,000 km",
+                location: "Pune",
+                date: "1 month ago",
+                featured: false,
+                description: "The MG Hector is known for its spacious interiors and advanced connectivity features, making it a great family car."
+            },
+            {
+                id: 6,
+                title: "2022 Skoda Kushaq",
+                price: "₹10,500,000",
+                image: "https://i.ibb.co/8Yhr1yC/017c79a7-ece9-446d-a00b-53c044566d8d.png",
+                year: 2022,
+                mileage: "8,000 km",
+                location: "Ahmedabad",
+                date: "3 weeks ago",
+                featured: true,
+                description: "The Skoda Kushaq is a stylish and powerful SUV designed for the Indian market, featuring a robust build and impressive performance."
+            },
+            {
+                id: 7,
+                title: "2021 Toyota Fortuner",
+                price: "₹35,000,000",
+                image: "https://i.ibb.co/0BxwQTn/images-q-tbn-ANd9-Gc-S0-B9-XMwddqg-ERxg-Of-Cr-Gl-GR2q-IEPe-Qf-MSQg-s.jpg",
+                year: 2021,
+                mileage: "18,000 km",
+                location: "Hyderabad",
+                date: "2 weeks ago",
+                featured: false,
+                description: "The Toyota Fortuner is a powerful SUV known for its ruggedness and off-road capabilities, suitable for all terrains."
+            },
+            {
+                id: 8,
+                title: "2020 Nissan Kicks",
+                price: "₹9,000,000",
+                image: "https://i.ibb.co/NCqNjSK/HFZKC05-ph7teqe9-1-48651313.jpg",
+                year: 2020,
+                mileage: "20,000 km",
+                location: "Kolkata",
+                date: "1 week ago",
+                featured: false,
+                description: "Nissan Kicks is a stylish compact SUV that offers a comfortable ride and advanced features for urban driving."
+            },
+            {
+                id: 9,
+                title: "2022 Renault Kiger",
+                price: "₹6,500,000",
+                image: "https://i.ibb.co/y0JVmYg/images-q-tbn-ANd9-Gc-Rf-T6k9-Em9-Cg-XCWS9j1-Waeq7l-OS6-FSzg-No-Id-A-s.jpg",
+                year: 2022,
+                mileage: "15,000 km",
+                location: "Jaipur",
+                date: "5 days ago",
+                featured: false,
+                description: "The Renault Kiger is a compact SUV with a sporty design and efficient performance, ideal for city and highway driving."
+            }
+        ];
+
+        // Generating the cards with dynamic data
+       
+    function generateCarListings() {
+        const container = document.getElementById("carListings");
+        container.innerHTML = cars.map(car => `
+            <div class="card">
+                <div class="card-image">
+                    <img src="${car.image}" alt="${car.title}">
+                    ${car.featured ? '<span class="featured-badge">Featured</span>' : ''}
+                    <button class="favorite-btn" onclick="toggleFavorite(${car.id})">❤️</button>
+                </div>
+                <div class="card-content">
+                    <div class="price">${car.price}</div>
+                    <div class="title">${car.title}</div>
+                    <div class="details">${car.year} - ${car.mileage}</div>
+                    <div class="location">📍 ${car.location}</div>
+                    <div class="date">${car.date}</div>
+                    <div class="button-container">
+                        <button class="show-more-btn" onclick="toggleMoreInfo(${car.id})">Show More</button>
+                        <button class="chat-btn" onclick="openChat()">Chat</button>
+                    </div>
+                    <div class="more-info" id="moreInfo${car.id}">${car.description}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function openChat() {
+        window.location.href = 'chatbox.html';
+    }
+
+    function toggleFavorite(id) {
+        const btn = document.querySelector(`.favorite-btn[onclick="toggleFavorite(${id})"]`);
+        btn.classList.toggle("active");
+    }
+
+    function toggleMoreInfo(id) {
+        const moreInfoDiv = document.getElementById(`moreInfo${id}`);
+        moreInfoDiv.style.display = moreInfoDiv.style.display === "none" || !moreInfoDiv.style.display ? "block" : "none";
+    }
+
+    // Initialize the car listings
+    generateCarListings();
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+
+        <div class="tabs">
+            <button class="tab active" onclick="showNewCars()" src="carsbox.html">New Cars</button>
+            <button class="tab" onclick="showUsedCars()"  src="carsbox.html">Used Cars</button>
+        </div>

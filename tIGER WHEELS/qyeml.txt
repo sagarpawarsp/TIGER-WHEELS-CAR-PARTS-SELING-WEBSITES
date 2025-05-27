@@ -1,0 +1,136 @@
+1. Perform the following operations using Python on the given data sets
+Region
+Age
+Income
+Online Shopper
+India
+49
+86400
+No
+Brazil
+32
+57600
+Yes
+USA
+35
+64800
+No
+Brazil
+43
+73200
+No
+USA
+45
+Yes
+India
+40
+69600
+Yes
+Brazil
+62400
+No
+India
+53
+94800
+Yes
+USA
+55
+99600
+No
+India
+42
+80400
+1
+Yes
+a)Importing the libraries
+b) Importing the Dataset
+c) Handling of Missing Data
+d) Handling of Categorical Data
+e) Splitting the dataset into training and testing datasets
+f) Feature Scaling
+
+2. Implement Principal Component Analysis (PCA) using python
+
+ 1. Import libraries
+ 2. Load dataset
+ 3. Fill missing values by mean
+ 4. Standard scaler or normalisation
+ 5. Apply function given in question
+ 6. Display results
+ 7. Draw graph
+3.Implement linear regression on Data set
+
+ 1. Import libraries
+ 2. Load dataset
+ 3. Fill missing values by mean
+ 4. Standard scaler or normalisation
+ 5. Apply function given in question
+ 6. Display results
+ 7. Draw graph
+4.Design and implement SVM for classification with the proper data set.Test for Accuracy and Precision
+
+ 1. Import libraries
+ 2. Load dataset
+ 3. Fill missing values by mean
+ 4. Standard scaler or normalisation
+ 5. Apply function given in question
+ 6. Display results
+ 7. Draw graph
+5.Implement Naïve Bayes Classifier on Data set.
+
+ 1. Import libraries
+ 2. Load dataset
+ 3. Fill missing values by mean
+ 4. Standard scaler or normalisation
+ 5. Apply function given in question
+ 6. Display results
+ 7. Draw graph
+6.K-Nearest Neighbor Classifier on Data set. Test for Accuracy and Precision.
+
+ 1. Import libraries
+ 2. Load dataset
+ 3. Fill missing values by mean
+ 4. Standard scaler or normalisation
+ 5. Apply function given in question
+ 6. Display results
+ 7. Draw graph
+7.Implement K-Means Clustering on the proper data set.
+
+ 1. Import libraries
+ 2. Load dataset
+ 3. Fill missing values by mean
+ 4. Standard scaler or normalisation
+ 5. Apply function given in question
+ 6. Display results
+ 7. Draw graph
+
+8.Implement K-Medoid Clustering on the proper data set.
+
+ 1. Import libraries
+ 2. Load dataset
+ 3. Fill missing values by mean
+ 4. Standard scaler or normalisation
+ 5. Apply function given in question
+ 6. Display results
+ 7. Draw graph
+9.Implement Hierarchical clustering on the proper data set.
+
+ 1. Import libraries
+ 2. Load dataset
+ 3. Fill missing values by mean
+ 4. Standard scaler or normalisation
+ 5. Apply function given in question
+ 6. Display results
+ 7. Draw graph
+10.Implement Apriori algorithm to find frequently occurring items from given data and generate strong association rules using support and confidence thresholds for the given dataset.
+
+ 1. Import libraries
+ 2. Load dataset
+ 3. Fill missing values by mean
+ 4. Standard scaler or normalisation
+ 5. Apply function given in question
+ 6. Display results
+ 7. Draw graph
+
+
+inthis all quations give me  oral quations in simple format and create me all in docx file 

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarParts Hub - Order Tracking</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2C3E50;
+            --secondary-color: #2926e2;
+            --success-color: #27ae60;
+            --light-gray: #ECF0F1;
+            --dark-gray: #7F8C8D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .tracking-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .order-info {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tracking-status {
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--light-gray);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--success-color);
+            width: 75%;
+            transition: width 0.5s ease;
+        }
+
+        .tracking-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            width: 120px;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid var(--dark-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+        }
+
+        .step.active .step-icon {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+        }
+
+        .step-label {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .step.active .step-label {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .delivery-details {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-tracking {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-tracking input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid var(--dark-gray);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-tracking button {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-tracking button:hover {
+            background-color: #2010b3;
+        }
+
+        @media (max-width: 768px) {
+            .tracking-steps {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2rem;
+            }
+
+            .progress-bar {
+                width: 4px;
+                height: 100%;
+                left: 20px;
+                top: 0;
+                transform: none;
+            }
+
+            .step {
+                flex-direction: row;
+                width: 100%;
+                gap: 1rem;
+            }
+
+            .step-label {
+                text-align: left;
+            }
+
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-tracking {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo">CarParts Hub</a>
+    </nav>
+
+    <div class="tracking-container">
+        <div class="search-tracking">
+            <input type="text" placeholder="Enter your tracking number" id="trackingInput">
+            <button onclick="trackOrder()">Track Order</button>
+        </div>
+
+        <div class="order-info">
+            <div class="order-header">
+                <div>
+                    <h2>Order #CP78945612</h2>
+                    <p>Expected Delivery: Nov 6, 2024</p>
+                </div>
+                <div>
+                    <h3>₹14,999</h3>
+                    <p>Alloy Wheels Set</p>
+                </div>
+            </div>
+
+            <div class="tracking-status">
+                <div class="progress-bar">
+                    <div class="progress-bar-fill"></div>
+                </div>
+                <div class="tracking-steps">
+                    <div class="step active">
+                        <div class="step-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="step-label">Order Placed<br>Nov 3, 2024</div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="step-label">Confirmed<br>Nov 3, 2024</div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="step-label">Shipped<br>Nov 4, 2024</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="step-label">Delivered<br>Pending</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="delivery-details">
+            <h3>Delivery Details</h3>
+            <div class="detail-row">
+                <div>
+                    <strong>Shipping Address:</strong>
+                    <p>123 Car Street, Auto City</p>
+                    <p>State, Country - 123456</p>
+                </div>
+                <div>
+                    <strong>Contact Details:</strong>
+                    <p>John Doe</p>
+                    <p>+91 98765 43210</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function trackOrder() {
+            const trackingNumber = document.getElementById('trackingInput').value;
+            if (!trackingNumber) {
+                alert('Please enter a tracking number');
+                return;
+            }
+            
+            // Simulate tracking lookup
+            alert(`Tracking information for order ${trackingNumber} displayed`);
+        }
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const progressBar = document.querySelector('.progress-bar-fill');
+            const currentWidth = parseInt(progressBar.style.width) || 75;
+            
+            if (currentWidth < 100) {
+                progressBar.style.width = `${currentWidth + 1}%`;
+                
+                if (currentWidth + 1 >= 100) {
+                    document.querySelector('.step:last-child').classList.add('active');
+                }
+            }
+        }, 10000); // Update every 10 seconds
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+        const addressData = JSON.parse(localStorage.getItem('addressData'));
+        
+        if (addressData) {
+            document.querySelector('.delivery-details').innerHTML = `
+                <h3>Delivery Details</h3>
+                <div class="detail-row">
+                    <div>
+                        <strong>Shipping Address:</strong>
+                        <p>${addressData.address1}, ${addressData.address2}</p>
+                        <p>${addressData.city}, ${addressData.state} - ${addressData.zipCode}</p>
+                    </div>
+                    <div>
+                        <strong>Contact Details:</strong>
+                        <p>${addressData.fullName}</p>
+                        <p>${addressData.phone}</p>
+                    </div>
+                </div>
+            `;
+        } else {
+            alert('No address information found.');
+        }
+    });
+    </script>
+</body>
+</html>

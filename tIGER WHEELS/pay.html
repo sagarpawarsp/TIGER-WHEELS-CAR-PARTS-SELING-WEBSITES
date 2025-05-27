@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Payment Form</title>
+    <style>
+        /* Basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .payment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .payment-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .payment-header h1 {
+            color: #232f3e;
+            font-size: 24px;
+        }
+        .form-section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 18px;
+            color: #232f3e;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .form-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .payment-method {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .payment-method.selected {
+            border-color: #ff9900;
+            background-color: #fff9e6;
+        }
+        .payment-method img {
+            height: 40px;
+            margin-bottom: 10px;
+        }
+        .card-icons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .card-icons img {
+            height: 30px;
+        }
+        .btn {
+            background-color: #ff9900;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #ff8800;
+        }
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .payment-method {
+                min-width: 100%;
+            }
+            .payment-container {
+                padding: 15px;
+            }
+        }
+        .success-message {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1>Secure Payment</h1>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            Payment processed successfully!
+        </div>
+
+        <form id="paymentForm">
+            <div class="form-section">
+                <h2 class="section-title">Shipping Address</h2>
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Street Address</label>
+                    <input type="text" id="address" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" required>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" id="state" required>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="zipcode">PIN Code</label>
+                            <input type="text" id="zipcode" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Payment Method</h2>
+                <div class="payment-methods" id="paymentMethods">
+                    <div class="payment-method" data-method="card">
+                        <img src="https://cdn-icons-png.flaticon.com/512/6963/6963703.png" alt="Credit Card">
+                        <div>Credit/Debit Card (Visa, Mastercard, Rupay)</div>
+                    </div>
+                    <div class="payment-method" data-method="upi">
+                        <img src="https://cdn.iconscout.com/icon/free/png-256/free-upi-logo-icon-download-in-svg-png-gif-file-formats--unified-payments-interface-payment-money-transfer-logos-icons-1747946.png?f=webp" alt="UPI">
+                        <div>UPI</div>
+                    </div>
+                    <div class="payment-method" data-method="netbanking">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwvjrjoZnord6W3t9JtI44aUE2-LLtXruvbw&s" alt="Net Banking">
+                        <div>Net Banking</div>
+                    </div>
+                </div>
+
+                <div id="cardPaymentSection">
+                    <div class="card-icons">
+                        <img src="https://w7.pngwing.com/pngs/667/172/png-transparent-logo-brand-visa-font-visa-blue-text-trademark-thumbnail.png" alt="Visa">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2muv0x1jQVtz9WJMBxaLw27gwx3XHbuQA0w&s" alt="Mastercard">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs91yT6FB77AcpDVp3o5A-fd2uyX8r3AXs2g&s" alt="Rupay">
+                    </div>
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="password" id="cvv" placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="upiSection" style="display: none;">
+                    <div class="form-group">
+                        <label for="upiId">UPI ID</label>
+                        <input type="text" id="upiId" placeholder="username@upi">
+                    </div>
+                </div>
+
+                <div id="netbankingSection" style="display: none;">
+                    <div class="form-group">
+                        <label for="bank">Select Bank</label>
+                        <select id="bank">
+                            <option value="">Select a bank</option>
+                            <option value="sbi">State Bank of India</option>
+                            <option value="hdfc">HDFC Bank</option>
+                            <option value="icici">ICICI Bank</option>
+                            <option value="axis">Axis Bank</option>
+                            <option value="pnb">Punjab National Bank</option>
+                            <option value="kotak">Kotak Mahindra Bank</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Pay Now</button>
+        </form>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const cardSection = document.getElementById('cardPaymentSection');
+        const upiSection = document.getElementById('upiSection');
+        const netbankingSection = document.getElementById('netbankingSection');
+        const form = document.getElementById('paymentForm');
+        const successMessage = document.getElementById('successMessage');
+        const cardNumber = document.getElementById('cardNumber');
+        const expiryDate = document.getElementById('expiryDate');
+    
+        // Function to display the relevant payment section
+        function showPaymentSection(method) {
+            cardSection.style.display = method === 'card' ? 'block' : 'none';
+            upiSection.style.display = method === 'upi' ? 'block' : 'none';
+            netbankingSection.style.display = method === 'netbanking' ? 'block' : 'none';
+        }
+    
+        // Payment method selection
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', function() {
+                paymentMethods.forEach(m => m.classList.remove('selected')); // Deselect all methods
+                this.classList.add('selected'); // Select the clicked method
+                showPaymentSection(this.dataset.method); // Show the selected section
+            });
+        });
+    
+        // Card number auto-formatting
+        cardNumber.addEventListener('input', function(e) {
+            e.target.value = e.target.value
+                .replace(/\D/g, '') // Remove non-digit characters
+                .replace(/(\d{4})(?=\d)/g, '$1 ') // Add space every 4 digits
+                .trim(); 
+        });
+    
+        // Expiry date auto-formatting
+        expiryDate.addEventListener('input', function(e) {
+            e.target.value = e.target.value
+                .replace(/\D/g, '') // Remove non-digit characters
+                .replace(/(\d{2})(\d{0,2})/, '$1/$2') // Format as MM/YY
+                .slice(0, 5); // Limit to 5 characters
+        });
+    
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+    
+            // Ensure a payment method is selected
+            const selectedMethod = document.querySelector('.payment-method.selected');
+            if (!selectedMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+    
+            // Display success message
+            successMessage.style.display = 'block';
+    
+            // Redirect to track.html after a brief delay
+            setTimeout(() => {
+                window.location.href = 'track.html';
+            }, 2000);
+        });
+    });
+    
+</script>
+</body>
+</html>
+

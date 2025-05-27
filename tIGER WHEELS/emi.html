@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Bank EMI Calculator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .input-section {
+            padding: 20px;
+        }
+
+        .result-section {
+            padding: 20px;
+            background: linear-gradient(135deg, #000428, #004e92);
+            border-radius: 15px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #1a2a6c;
+            grid-column: 1 / -1;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #1a2a6c, #b21f1f);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1a2a6c;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        select:focus, input:focus {
+            border-color: #1a2a6c;
+            box-shadow: 0 0 0 3px rgba(26, 42, 108, 0.1);
+            outline: none;
+        }
+
+        .icon-input {
+            position: relative;
+        }
+
+        .icon-input i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #1a2a6c;
+        }
+
+        button {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 42, 108, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            padding: 30px;
+        }
+
+        .result h2 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .result-label {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-value {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: white;
+        }
+
+        .pie-chart {
+            width: 200px;
+            height: 200px;
+            margin: 30px auto;
+            position: relative;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .pie-chart:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        optgroup {
+            font-weight: 600;
+            color: #1a2a6c;
+        }
+
+        option {
+            padding: 10px;
+        }
+
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .loading::after {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border: 3px solid #1a2a6c;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .result-chart {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin-top: 30px;
+        }
+
+        .chart-segment {
+            position: absolute;
+            bottom: 0;
+            width: 45%;
+            background: rgba(255, 255, 255, 0.2);
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            transition: height 0.5s ease;
+        }
+
+        .principal-bar {
+            left: 5%;
+            background: rgba(253, 187, 45, 0.7);
+        }
+
+        .interest-bar {
+            right: 5%;
+            background: rgba(178, 31, 31, 0.7);
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Premium EMI Calculator</h1>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <label for="bank">Select Your Bank</label>
+                <select id="bank" class="premium-select">
+                    <optgroup label="Public Sector Banks">
+                        <option value="SBI">State Bank of India (SBI)</option>
+                        <option value="PNB">Punjab National Bank (PNB)</option>
+                        <option value="BOB">Bank of Baroda</option>
+                        <option value="CANARA">Canara Bank</option>
+                        <option value="UNION">Union Bank of India</option>
+                    </optgroup>
+                    <optgroup label="Private Sector Banks">
+                        <option value="HDFC">HDFC Bank</option>
+                        <option value="ICICI">ICICI Bank</option>
+                        <option value="AXIS">Axis Bank</option>
+                        <option value="KOTAK">Kotak Mahindra Bank</option>
+                        <option value="INDUSIND">IndusInd Bank</option>
+                    </optgroup>
+                    <optgroup label="Foreign Banks">
+                        <option value="CITI">Citibank</option>
+                        <option value="DBS">DBS Bank</option>
+                        <option value="HSBC">HSBC</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="amount">Loan Amount (₹)</label>
+                <input type="number" id="amount" placeholder="Enter loan amount" />
+            </div>
+            <div class="input-group">
+                <label for="interest">Interest Rate (%)</label>
+                <input type="number" id="interest" placeholder="Enter interest rate" />
+            </div>
+            <div class="input-group">
+                <label for="term">Loan Term (years)</label>
+                <input type="number" id="term" placeholder="Enter loan term in years" />
+            </div>
+            <button id="calculateBtn">Calculate EMI</button>
+        </div>
+        
+        <div class="result-section">
+            <div class="loading" id="loading">Loading...</div>
+            <h2>EMI Results</h2>
+            <div class="result" id="result" style="display: none;">
+                <div class="result-card">
+                    <div class="result-label">Monthly EMI</div>
+                    <div class="result-value" id="monthlyEMI"></div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Total Payment</div>
+                    <div class="result-value" id="totalPayment"></div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Total Interest</div>
+                    <div class="result-value" id="totalInterest"></div>
+                </div>
+                <div class="result-chart">
+                    <div class="chart-segment principal-bar" id="principalBar"></div>
+                    <div class="chart-segment interest-bar" id="interestBar"></div>
+                    <div class="chart-label" id="chartLabel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function () {
+            const bank = document.getElementById('bank').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const interest = parseFloat(document.getElementById('interest').value) / 100 / 12;
+            const term = parseFloat(document.getElementById('term').value) * 12;
+
+            if (!amount || !interest || !term) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Show loading animation
+            const loading = document.getElementById('loading');
+            loading.style.display = 'flex';
+
+            // Calculation
+            const emi = (amount * interest * Math.pow(1 + interest, term)) / (Math.pow(1 + interest, term) - 1);
+            const totalPayment = emi * term;
+            const totalInterest = totalPayment - amount;
+
+            // Update UI after calculation
+            setTimeout(() => {
+                loading.style.display = 'none';
+                document.getElementById('monthlyEMI').innerText = `₹${emi.toFixed(2)}`;
+                document.getElementById('totalPayment').innerText = `₹${totalPayment.toFixed(2)}`;
+                document.getElementById('totalInterest').innerText = `₹${totalInterest.toFixed(2)}`;
+
+                // Chart calculation
+                const principalHeight = (amount / totalPayment) * 100;
+                const interestHeight = (totalInterest / totalPayment) * 100;
+                document.getElementById('principalBar').style.height = `${principalHeight}%`;
+                document.getElementById('interestBar').style.height = `${interestHeight}%`;
+
+                // Chart label
+                document.getElementById('chartLabel').innerText = `Principal: ₹${amount.toFixed(2)} | Interest: ₹${totalInterest.toFixed(2)}`;
+
+                // Show results
+                document.getElementById('result').style.display = 'block';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

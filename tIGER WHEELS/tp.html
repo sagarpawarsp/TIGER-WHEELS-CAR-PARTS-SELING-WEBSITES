@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium CarBazaar - Luxury Car Shopping Experience</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Existing styles remain unchanged */
+
+        /* Additional styles for EMI Calculator and Bank Offers */
+        .emi-calculator {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            max-width: 600px;
+            margin: 4rem auto;
+        }
+
+        .emi-calculator h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .emi-calculator .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .emi-calculator .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .emi-calculator .emi-result {
+            background: var(--accent-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .bank-offers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .bank-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .bank-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .apply-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .apply-btn:hover {
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="logo">
+                <i class="fas fa-car"></i>
+                Premium CarBazaar
+            </a>
+            <div class="nav-links">
+                <a href="#" onclick="showBrands()">Brands</a>
+                <a href="#" onclick="showCalculator()">EMI Calculator</a>
+                <a href="#" onclick="showSellForm()">Sell Your Car</a>
+                <a href="#" onclick="showCart()"><i class="fas fa-shopping-cart"></i> Cart (0)</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Find Your Dream Car</h1>
+            <p>Choose from our extensive collection of premium vehicles</p>
+            <div class="search-bar">
+                <select>
+                    <option value="">Select Brand</option>
+                    <option value="hyundai">Hyundai</option>
+                    <option value="tata">Tata</option>
+                    <option value="mahindra">Mahindra</option>
+                    <option value="maruti">Maruti</option>
+                    <option value="volkswagen">Volkswagen</option>
+                </select>
+                <select>
+                    <option value="">Select Model</option>
+                </select>
+                <button>Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section-title">
+            <h2>Popular Brands</h2>
+            <p>Discover the best car brands and their latest models</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showNewCars()">New Cars</button>
+            <button class="tab" onclick="showUsedCars()">Used Cars</button>
+        </div>
+
+        <div id="brands" class="brands">
+            <!-- Existing brand cards -->
+            <div class="brand-card" onclick="showCars('Hyundai')">
+                <img src="https://via.placeholder.com/180" alt="Hyundai">
+                <h3>Hyundai</h3>
+                <div class="brand-stats">
+                    <div class="stat">
+                        <span class="stat-value">120+</span>
+                        <span>Models</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">50+</span>
+                        <span>Dealers</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for other brands... -->
+        </div>
+
+        <!-- EMI Calculator Section -->
+        <div class="emi-calculator">
+            <h2>EMI Calculator</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="loan-amount">Loan Amount</label>
+                    <input type="number" id="loan-amount" placeholder="Enter amount" />
+                </div>
+                <div class="form-group">
+                    <label for="interest-rate">Interest Rate (%)</label>
+                    <input type="number" id="interest-rate" placeholder="Enter rate" />
+                </div>
+                <div class="form-group">
+                    <label for="loan-term">Loan Term (Years)</label>
+                    <input type="number" id="loan-term" placeholder="Enter term" />
+                </div>
+            </div>
+            <button onclick="calculateEMI()">Calculate EMI</button>
+            <div class="emi-result" id="emi-result" style="display:none;">
+                <div>Monthly EMI:</div>
+                <div id="emi-amount"></div>
+            </div>
+        </div>
+
+        <!-- Bank Offers Section -->
+        <div class="section-title">
+            <h2>Bank Offers</h2>
+            <p>Apply for loans from leading banks</p>
+        </div>
+        <div class="bank-offers">
+            <div class="bank-card">
+                <h3>HDFC Bank</h3>
+                <div>Revenue: 72.77K Cr.</div>
+                <button class="apply-btn" onclick="window.open('https://www.hdfcbank.com', '_blank')">Apply for Loan</button>
+            </div>
+            <div class="bank-card">
+                <h3>ICICI Bank</h3>
+                <div>Revenue: 44.83K Cr.</div>
+                <button class="apply-btn" onclick="window.open('https://www.icicibank.com', '_blank')">Apply for Loan</button>
+            </div>
+            <div class="bank-card">
+                <h3>State Bank of India (SBI)</h3>
+                <div>Revenue: 76.02K Cr.</div>
+                <button class="apply-btn" onclick="window.open('https://www.sbi.co.in', '_blank')">Apply for Loan</button>
+            </div>
+            <div class="bank-card">
+                <h3>Axis Bank</h3>
+                <div>Revenue: 19.31K Cr.</div>
+                <button class="apply-btn" onclick="window.open('https://www.axisbank.com', '_blank')">Apply for Loan</button>
+            </div>
+            <div class="bank-card">
+                <h3>Kotak Mahindra Bank</h3>
+                <div>Revenue: 18.85K Cr.</div>
+                <button class="apply-btn" onclick="window.open('https://www.kotak.com', '_blank')">Apply for Loan</button>
+            </div>
+            <div class="bank-card">
+                <h3>Bank of Baroda</h3>
+                <div>Revenue: 14.78K Cr.</div>
+                <button class="apply-btn" onclick="window.open('https://www.bankofbaroda.in', '_blank')">Apply for Loan</button>
+            </div>
+            <div class="bank-card">
+                <h3>Punjab National Bank (PNB)</h3>
+                <div>Revenue: 13.32K Cr.</div>
+                <button class="apply-btn" onclick="window.open('https://www.pnbindia.in', '_blank')">Apply for Loan</button>
+            </div>
+            <div class="bank-card">
+                <h3>IndusInd Bank</h3>
+                <div>Revenue: Data not available.</div>
+                <button class="apply-btn" onclick="window.open('https://www.indusind.com', '_blank')">Apply for Loan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showCars(brand) {
+            alert('Displaying cars for ' + brand);
+        }
+
+        function calculateEMI() {
+            const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) / 100 / 12;
+            const loanTerm = parseInt(document.getElementById('loan-term').value) * 12;
+
+            if (isNaN(loanAmount) || isNaN(interestRate) || isNaN(loanTerm)) {
+                alert('Please enter valid values');
+                return;
+            }
+
+            const emi = (loanAmount * interestRate * Math.pow(1 + interestRate, loanTerm)) / (Math.pow(1 + interestRate, loanTerm) - 1);
+            document.getElementById('emi-amount').innerText = emi.toFixed(2);
+            document.getElementById('emi-result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

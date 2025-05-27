@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://i.ibb.co/Qdrpczv/Screenshot-2024-10-27-132916.png') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        /* Dark overlay for better readability */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(29, 78, 216, 0.7));
+            z-index: 1;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            animation: fadeIn 0.5s ease-out;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        p {
+            color: #64748b;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .signin {
+            background: #1d4ed8;
+            color: white;
+        }
+
+        .signin:hover {
+            background: #1e40af;
+        }
+
+        .signup {
+            background: white;
+            color: #1d4ed8;
+            border: 2px solid #1d4ed8;
+        }
+
+        .signup:hover {
+            background: #f8fafc;
+            border-color: #1e40af;
+            color: #1e40af;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Glass effect for container on hover */
+        .container:hover {
+            background: rgba(255, 255, 255, 0.98);
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome Back!</h1>
+        <p>Choose how you'd like to continue your journey with us. Sign in to access your account or create a new one.</p>
+        <div class="buttons">
+            <button class="signin" onclick="handleSignIn()">Sign In</button>
+            <button class="signup" onclick="handleSignUp()">Sign Up</button>
+        </div>
+    </div>
+
+    <script>
+        function handleSignIn() {
+            window.location.href = 'signin.html';  // Redirect to sign-in page
+        }
+
+        function handleSignUp() {
+            window.location.href = 'signup.html';  // Redirect to sign-up page
+        }
+
+        // Add smooth fade-in animation when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.container').style.opacity = '1';
+        });
+
+        // Optional: Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.body.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+        });
+    </script>
+</body>
+</html>

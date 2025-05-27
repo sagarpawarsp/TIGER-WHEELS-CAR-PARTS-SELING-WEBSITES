@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f3f3f3;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff9900;
+            box-shadow: 0 0 5px rgba(255,153,0,0.3);
+            outline: none;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .btn {
+            background-color: #ff9900;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .btn:hover {
+            background-color: #ff8c00;
+        }
+
+        .error {
+            color: #d00;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .col {
+                flex: 100%;
+                min-width: 100%;
+            }
+
+            .btn {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Add a new address</h1>
+        </div>
+        <form id="addressForm">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="fullName">Full name</label>
+                        <input type="text" id="fullName" required>
+                        <div class="error" id="fullNameError">Please enter a valid name</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="phone">Phone number</label>
+                        <input type="tel" id="phone" required>
+                        <div class="error" id="phoneError">Please enter a valid phone number</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address1">Address line 1</label>
+                <input type="text" id="address1" required>
+                <div class="error" id="address1Error">Please enter your address</div>
+            </div>
+
+            <div class="form-group">
+                <label for="address2">Address line 2 (optional)</label>
+                <input type="text" id="address2">
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" required>
+                        <div class="error" id="cityError">Please enter a city</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <select id="state" required>
+                            <option value="">Select state</option>
+                            <option value="MH">Maharashtra</option>
+                            <option value="KA">Karnataka</option>
+                            <option value="DL">Delhi</option>
+                            <option value="TN">Tamil Nadu</option>
+                            <option value="UP">Uttar Pradesh</option>
+                            <option value="GJ">Gujarat</option>
+                            <!-- Add more Indian states as needed -->
+                        </select>
+                        <div class="error" id="stateError">Please select a state</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="zipCode">PIN Code</label>
+                        <input type="text" id="zipCode" required>
+                        <div class="error" id="zipCodeError">Please enter a valid PIN code</div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Add address</button>
+        </form>
+    </div>
+
+    <script>
+       document.getElementById('addressForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let isValid = true;
+    
+    // Reset all errors
+    document.querySelectorAll('.error').forEach(error => {
+        error.style.display = 'none';
+    });
+
+    // Validate full name
+    const fullName = document.getElementById('fullName').value;
+    if (fullName.trim().length < 2) {
+        document.getElementById('fullNameError').style.display = 'block';
+        isValid = false;
+    }
+
+    // Validate phone (Indian 10-digit number format)
+    const phone = document.getElementById('phone').value;
+    if (!phone.match(/^[6-9]\d{9}$/)) {
+        document.getElementById('phoneError').style.display = 'block';
+        isValid = false;
+    }
+
+    // Validate address1
+    const address1 = document.getElementById('address1').value;
+    if (address1.trim().length < 5) {
+        document.getElementById('address1Error').style.display = 'block';
+        isValid = false;
+    }
+
+    // Validate city
+    const city = document.getElementById('city').value;
+    if (city.trim().length < 2) {
+        document.getElementById('cityError').style.display = 'block';
+        isValid = false;
+    }
+
+    // Validate state
+    const state = document.getElementById('state').value;
+    if (!state) {
+        document.getElementById('stateError').style.display = 'block';
+        isValid = false;
+    }
+
+    // Validate PIN code (6 digits)
+    const zipCode = document.getElementById('zipCode').value;
+    if (!zipCode.match(/^\d{6}$/)) {
+        document.getElementById('zipCodeError').style.display = 'block';
+        isValid = false;
+    }
+
+    if (isValid) {
+        // Get form data
+        const addressData = {
+            fullName: fullName,
+            phone: phone,
+            address1: address1,
+            address2: document.getElementById('address2').value,
+            city: city,
+            state: state,
+            zipCode: zipCode
+        };
+
+        // Store data in localStorage
+        localStorage.setItem('addressData', JSON.stringify(addressData));
+
+        // Redirect to pay.html
+        window.location.href = 'pay.html';
+    }
+});
+
+    </script>
+</body>
+</html>

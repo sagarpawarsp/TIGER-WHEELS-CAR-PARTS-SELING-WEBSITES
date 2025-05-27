@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Car Loan & Quotation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+        .progress-bar {
+            transition: width 0.3s ease-in-out;
+        }
+        input:focus, select:focus {
+            outline: 2px solid #1e3a8a;
+            outline-offset: -1px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav class="bg-blue-900 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="text-2xl font-bold">PREMIUM CAR FINANCE</div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium" id="progress-text">Step 1 of 4</span>
+                    <span class="text-sm font-medium" id="progress-percentage">25%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-blue-900 h-2.5 rounded-full progress-bar" style="width: 25%"></div>
+                </div>
+            </div>
+
+            <form id="car-loan-form" class="space-y-6" onsubmit="return handleSubmit(event);">
+                <!-- Step 1: Personal Information -->
+                <div class="form-step active" id="step1">
+                    <h2 class="text-2xl font-bold mb-6">Personal Information</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Full Name</label>
+                            <input type="text" required class="w-full px-4 py-2 border rounded-lg" name="fullName">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" required class="w-full px-4 py-2 border rounded-lg" name="email">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Phone Number</label>
+                            <input type="tel" required class="w-full px-4 py-2 border rounded-lg" name="phone">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Annual Income</label>
+                            <input type="number" required class="w-full px-4 py-2 border rounded-lg" name="income">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Car Selection -->
+                <div class="form-step" id="step2">
+                    <h2 class="text-2xl font-bold mb-6">Car Selection</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Car Brand</label>
+                            <select required class="w-full px-4 py-2 border rounded-lg" name="carBrand" id="carBrand">
+                                <option value="">Select Brand</option>
+                                <option value="toyota">Toyota</option>
+                                <option value="honda">Honda</option>
+                                <option value="bmw">BMW</option>
+                                <option value="mercedes">Mercedes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Car Model</label>
+                            <select required class="w-full px-4 py-2 border rounded-lg" name="carModel" id="carModel">
+                                <option value="">Select Model</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Year</label>
+                            <select required class="w-full px-4 py-2 border rounded-lg" name="carYear">
+                                <option value="">Select Year</option>
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Budget Range</label>
+                            <select required class="w-full px-4 py-2 border rounded-lg" name="budget">
+                                <option value="">Select Budget</option>
+                                <option value="20-30">₹20,000 - ₹30,000</option>
+                                <option value="30-40">₹30,000 - ₹40,000</option>
+                                <option value="40-50">₹40,000 - ₹50,000</option>
+                                <option value="50+">₹50,000+</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Loan Details -->
+                <div class="form-step" id="step3">
+                    <h2 class="text-2xl font-bold mb-6">Loan Details</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Loan Amount</label>
+                            <input type="number" required class="w-full px-4 py-2 border rounded-lg" name="loanAmount" id="loanAmount">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Down Payment</label>
+                            <input type="number" required class="w-full px-4 py-2 border rounded-lg" name="downPayment" id="downPayment">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Loan Term (Years)</label>
+                            <select required class="w-full px-4 py-2 border rounded-lg" name="loanTerm" id="loanTerm">
+                                <option value="3">3 Years</option>
+                                <option value="4">4 Years</option>
+                                <option value="5">5 Years</option>
+                                <option value="6">6 Years</option>
+                                <option value="7">7 Years</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Select Bank</label>
+                            <select required class="w-full px-4 py-2 border rounded-lg" name="bank">
+                                <option value="">Select Bank</option>
+                                <option value="SBI">State Bank of India</option>
+                                <option value="HDFC">HDFC Bank</option>
+                                <option value="ICICI">ICICI Bank</option>
+                                <option value="Axis">Axis Bank</option>
+                                <option value="PNB">Punjab National Bank</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Document Upload -->
+                <div class="form-step" id="step4">
+                    <h2 class="text-2xl font-bold mb-6">Document Upload</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">ID Proof</label>
+                            <input type="file" accept=".pdf,.jpg,.png" required class="w-full px-4 py-2 border rounded-lg" name="idProof">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Address Proof</label>
+                            <input type="file" accept=".pdf,.jpg,.png" required class="w-full px-4 py-2 border rounded-lg" name="addressProof">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Income Proof</label>
+                            <input type="file" accept=".pdf,.jpg,.png" required class="w-full px-4 py-2 border rounded-lg" name="incomeProof">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Bank Statements</label>
+                            <input type="file" accept=".pdf" required class="w-full px-4 py-2 border rounded-lg" name="bankStatements">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between mt-8">
+                    <button type="button" id="prevBtn" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md" onclick="prevStep()">Previous</button>
+                    <button type="button" id="nextBtn" class="bg-blue-900 text-white px-4 py-2 rounded-md" onclick="nextStep()">Next</button>
+                    <button type="submit" id="submitBtn" class="bg-green-600 text-white px-4 py-2 rounded-md hidden">Submit</button>
+                </div>
+            </form>
+
+            <!-- Loan Summary -->
+            <div class="mt-10 p-6 bg-gray-100 rounded-lg hidden" id="loan-summary">
+                <h2 class="text-2xl font-bold mb-4">Loan Summary</h2>
+                <div id="loan-summary-content" class="space-y-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        function updateProgressBar() {
+            const steps = 4;
+            const percentage = (currentStep / steps) * 100;
+            document.querySelector('.progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').innerText = `Step ${currentStep} of ${steps}`;
+            document.getElementById('progress-percentage').innerText = `${percentage}%`;
+        }
+
+        function nextStep() {
+            if (currentStep < 4) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep++;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgressBar();
+            }
+            if (currentStep === 4) {
+                document.getElementById('nextBtn').classList.add('hidden');
+                document.getElementById('submitBtn').classList.remove('hidden');
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgressBar();
+            }
+            if (currentStep < 4) {
+                document.getElementById('nextBtn').classList.remove('hidden');
+                document.getElementById('submitBtn').classList.add('hidden');
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(document.getElementById('car-loan-form'));
+
+            const loanAmount = parseFloat(formData.get('loanAmount'));
+            const downPayment = parseFloat(formData.get('downPayment'));
+            const loanTerm = parseInt(formData.get('loanTerm'), 10);
+            const monthlyRate = 0.01; // Approximate monthly interest rate
+
+            // Calculate monthly payment
+            const principal = loanAmount - downPayment;
+            const monthlyPayment = (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -loanTerm * 12));
+
+            // Format values in Indian Rupees
+            const loanAmountFormatted = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(loanAmount);
+            const downPaymentFormatted = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(downPayment);
+            const monthlyPaymentFormatted = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(monthlyPayment);
+
+            const loanSummaryContent = `
+                <p><strong>Loan Amount:</strong> ${loanAmountFormatted}</p>
+                <p><strong>Down Payment:</strong> ${downPaymentFormatted}</p>
+                <p><strong>Loan Term:</strong> ${loanTerm} years</p>
+                <p><strong>Monthly Payment:</strong> ${monthlyPaymentFormatted}</p>
+                <p><strong>Selected Bank:</strong> ${formData.get('bank')}</p>
+                <p><a href="https://sbi.co.in/web/personal-banking/loans/personal-loans" target="_blank">Apply at SBI</a></p>
+                <p><a href="https://applyonline.hdfcbank.com/" target="_blank">Apply at HDFC</a></p>
+                <p><a href="https://www.icicibank.com/personal-banking/loans/personal-loan" target="_blank">Apply at ICICI</a></p>
+                <p><a href="https://www.axisbank.com/retail/loans" target="_blank">Apply at Axis</a></p>
+                <p><a href="https://www.pnbindia.in/FAQ-PERSONAL-LOAN.html" target="_blank">Apply at PNB</a></p>
+            `;
+
+            document.getElementById('loan-summary-content').innerHTML = loanSummaryContent;
+            document.getElementById('loan-summary').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
